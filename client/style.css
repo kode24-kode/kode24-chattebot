@@ -1,0 +1,78 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1e1e1e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#chat-example {
+  max-width: 100%;
+  width: 400px;
+}
+
+#messages {
+  padding: 10px;
+}
+
+.message-container {
+  display: flex;
+}
+
+.message {
+  display: block;
+  max-width: 80%;
+  border-radius: 20px;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+}
+
+.message p {
+  margin: 0;
+}
+
+.me {
+  justify-content: flex-end;
+}
+
+.me .message {
+  background: #821599;
+  color: white;
+  text-align: right;
+}
+
+.reply {
+  justify-content: flex-start;
+}
+
+.reply .message {
+  background-color: gray;
+  color: black;
+}
+
+#input-form {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+}
+
+#input-text {
+  padding: 10px 20px;
+  font-size: 20px;
+  border: 0;
+  width: 100%;
+  outline: none;
+}
+
+#input-form-button {
+  background: linear-gradient(45deg, #821599, #492792);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 0;
+  font-size: 20px;
+  outline: none;
+}

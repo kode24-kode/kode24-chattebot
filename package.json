@@ -1,0 +1,15 @@
+{
+  "name": "kode24-chattebot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:kode24-kode/kode24-chattebot.git",
+  "author": "Jørgen Jacobsen <jorgen@kode24.no>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}

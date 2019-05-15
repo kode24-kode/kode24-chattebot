@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge, chrome=1" />
+    <title>Example client</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="chat-example">
+      <div id="messages"></div>
+      <form id="input-form">
+        <input
+          type="text"
+          id="input-text"
+          name="input-text"
+          placeholder="Spør om noe?"
+        /><button id="input-form-button">
+          Spør
+        </button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      $(function() {
+        var socket = io();
+        $("#input-form").submit(function(e) {
+          e.preventDefault(); // stopp formen fra å laste siden på nytt
+          // inputfeltet skal ikke være tomt
+          if ($("#input-text").val()) {
+            socket.emit("chat message", $("#input-text").val()); // send beskjed
+            addMessage($("#input-text").val()); // legg til beskjede i chatboksen
+            $("#input-text").val(""); // nullstill input-felt
+            return false;
+          }
+        });
+
+        socket.on("chat reply", function(message) {
+          addReply(message);
+        });
+
+        function addMessage(message) {
+          // legg til vår beskjed som et element
+          $(
+            "#messages"
+          ).append(`<div class="message-container me"><div class="message">
+              <p class="message-text">${message}</p>
+            </div></div>`);
+        }
+
+        function addReply(message) {
+          // legg til svaret fra serveren som et element
+          $(
+            "#messages"
+          ).append(`<div class="message-container reply"><div class="message reply">
+              <p class="message-text">${message}</p>
+            </div></div>`);
+        }
+      });
+    </script>
+  </body>
+</html>
