@@ -4,13 +4,14 @@ var path = require("path");
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 
-app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static(path.join(__dirname, "client"))); // gjør statiske filer som stilarket tilgjengelig
 
 app.get("*", (req, res) => {
-  console.log(path.join(__dirname + "/client/index.html"));
+  // gjør index.html tilgjengelig på alt av server-urler
   res.sendFile(path.join(__dirname + "/client/index.html"));
 });
 
+// verdens dummeste "AI"
 function parseQuestion(question) {
   if (question.indexOf("beste by") > -1) {
     return "Porsgrunn er Norges beste by";
@@ -26,18 +27,19 @@ function parseQuestion(question) {
   }
   return "Aner ikke..";
 }
-
+// alle brukere kobler til og får en egen socket id og objekt
 io.on("connection", function(socket) {
-  console.log("a user connected");
-
+  // lytt etter beskjeden "chat message"
   socket.on("chat message", function(message) {
     setTimeout(() => {
       var reply = parseQuestion(message);
+
+      //send ut en beskjed til brukeren
       socket.emit("chat reply", reply);
     }, 1000); // lat som vi bruker et sekund på å svare
   });
 });
 
 http.listen(3000, function() {
-  console.log("listening on *:3000");
+  console.log("listening on port 3000");
 });
