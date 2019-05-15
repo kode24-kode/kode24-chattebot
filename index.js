@@ -1,8 +1,11 @@
-var express = require("express");
-var app = express();
-var path = require("path");
-var http = require("http").Server(app);
-var io = require("socket.io")(http);
+import express from "express";
+import httpHandler from "http";
+import socketIO from "socket.io";
+import path from "path";
+
+const io = socketIO(http);
+const app = express();
+const http = httpHandler.Server(app);
 
 app.use(express.static(path.join(__dirname, "client"))); // gjør statiske filer som stilarket tilgjengelig
 
@@ -28,9 +31,9 @@ function parseQuestion(question) {
   return "Aner ikke..";
 }
 // alle brukere kobler til og får en egen socket id og objekt
-io.on("connection", function(socket) {
+io.on("connection", socket => {
   // lytt etter beskjeden "chat message"
-  socket.on("chat message", function(message) {
+  socket.on("chat message", message => {
     setTimeout(() => {
       var reply = parseQuestion(message);
 
@@ -40,6 +43,6 @@ io.on("connection", function(socket) {
   });
 });
 
-http.listen(process.env.PORT || 3000, function() {
+http.listen(process.env.PORT || 3000, () => {
   console.log("listening on port 3000");
 });
