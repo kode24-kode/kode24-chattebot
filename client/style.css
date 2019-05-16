@@ -56,6 +56,8 @@ body {
   display: flex;
   width: 100%;
   padding: 10px;
+  position: fixed;
+  bottom: 0;
 }
 
 #input-text {
